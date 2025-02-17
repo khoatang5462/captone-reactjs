@@ -1,0 +1,7 @@
+export * from './CatCard/CatCard'
+export * from './Banner/Banner'
+export * from './Features/Features'
+export * from './Header/Header'
+export * from './Testimonial/Testimonial'
+export * from './trustedBy/TrustedBy'
+export * from './Explore/Explore'

@@ -1,0 +1,118 @@
+.features {
+    background-color: #f1fdf7;
+    display: flex;
+    justify-content: center;
+    margin-top:50px ;
+    padding: 30px 0px;
+
+    &.dark {
+      background-color: #0d084d;
+
+      h1 {
+        color: white !important;
+        
+      }
+
+      i {
+        font-weight: 300;
+      }
+
+      p {
+        margin-bottom: 20px;
+        color: white !important;
+      }
+
+      .title {
+        color: white !important;
+        font-weight: 300 !important;
+        font-size: 14px !important;
+      }
+
+      button {
+        background-color: #1dbf73;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: max-content;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    }
+
+    .container {
+      width: 85%;
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      .item {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        &:first-child {
+          flex: 2;
+        }
+        &:last-child {
+          flex: 3;
+        }
+
+        img{
+          width: 100%;
+        }
+        h1 {
+          font-weight: 700;
+          font-size: 32px;
+          margin-bottom: 10px;
+          
+        }
+        .title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-weight: 500;
+          font-size: 18px;
+          color: #111;
+          img {
+          
+            width: 24px;
+            height: 24px;
+          }
+        }
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          color: gray;          
+          line-height: 28px;
+          letter-spacing: 1px;
+          
+        }
+
+        video{
+          width: 720px;
+        }
+      }
+    }
+
+    //   &.reverse {
+    //     background-color: #0d084d;
+    //     color: white;
+    //     .container {
+    //       flex-direction: row-reverse;
+    //     }
+    //   }
+    .overlay {
+      position: fixed;
+      inset: 0; 
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20; 
+    
+      .video {
+        max-width: 80%; 
+        max-height: 90%; 
+      }
+    } 
+  }

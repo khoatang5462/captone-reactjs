@@ -1,0 +1,58 @@
+.explore {
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+
+    .container {
+      width: 80%;
+
+      h1{
+        color: #555;
+        font-size: 30px;
+        font-weight: 500;
+      }
+
+      .items {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .item {
+          width: 250px;
+          height: 150px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          cursor: pointer;
+
+          img {
+            width: 50px;
+            height: 50px;
+          }
+
+          .line{
+            width: 50px;
+            height: 2px;
+            background-color: lightgray;
+            transition: all .3s ease;
+          }
+
+          span {
+            font-weight: 300;
+          }
+
+          &:hover{
+            .line{
+              width: 80px;
+              background-color: #1dbf73;
+            }
+          }
+        }
+      }
+    }
+  }
