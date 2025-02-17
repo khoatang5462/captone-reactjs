@@ -1,11 +1,12 @@
 import './App.css';
-import { Router } from './Router';
+
 import ErrorBoundary from './components/ErrorBoundary';
+import { Router } from './router/Router';
 
 function App() {
   return (
     <ErrorBoundary>
-      <Router/>
+     <Router/>
     </ErrorBoundary>
   );
 }
