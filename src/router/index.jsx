@@ -1,6 +1,8 @@
 import { useRoutes } from "react-router-dom";
 import { UserTemplate } from "../templates/UserTemplate/UserTemplate";
-import { Login, Register, UserProfile, HomePage, JobList, Page404 }  from "../pages/index";
+import { Login, Register, UserProfile, HomePage, Page404 } from "../pages/index";
+import JobList from "../pages/JobList/JobList";
+import JobLink from "../pages/JobLink/jobLink";
 
 export const Router = () => {
     return useRoutes([
@@ -9,7 +11,7 @@ export const Router = () => {
             element: <UserTemplate />,
             children: [
                 {
-                    path: "/userprofile",
+                    path: "userprofile",
                     element: <UserProfile />
                 },
                 {
@@ -17,17 +19,21 @@ export const Router = () => {
                     element: <HomePage />
                 },
                 {
-                    path: "/login",
+                    path: "login",
                     element: <Login />
                 },
                 {
-                    path: "/register",
+                    path: "register",
                     element: <Register />
                 },
                 {
-                    path: "/joblist",
-                    element: <JobList />
+                    path: "joblist/:name", 
+                    element: <JobList/>
                 },
+                {
+                    path:"/jobs/:id",
+                    element:<JobLink/>
+                }
             ],
         },
         {

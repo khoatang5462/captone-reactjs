@@ -40,16 +40,16 @@ export const Header = () => {
         {active && (
           <>
           <hr />
-            <div>
-              <span>Graphics & Design</span>
-              <span>Digital Marketing</span>
-              <span>Writing & Translation</span>
-              <span>Video & Animation</span>
-              <span>Music & Audio</span>
-              <span>Programming & Tech</span>
-              <span>Business</span>
-              <span>Lifestyle</span>
-              <span>Trending</span>
+            <div className=' space-x-4'>
+              <Link to='/jobs/1'>Graphics & Design</Link>
+              <Link to='/jobs/2'>Digital Marketing</Link>
+              <Link to='/jobs/3'>Writing & Translation</Link>
+              <Link to='/jobs/4'>Video & Animation</Link>
+              <Link to='/jobs/5'>Music & Audio</Link>
+              <Link to='/jobs/6'>Programming & Tech</Link>
+              <Link to='/jobs/7'>Business</Link>
+              <Link to='/jobs/8'>Lifestyle</Link>
+              <Link to='/jobs/9'>Trending</Link>
             </div>
           </>
         )}

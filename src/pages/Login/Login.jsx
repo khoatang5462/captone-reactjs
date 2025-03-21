@@ -8,27 +8,33 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginSchema = z.object({
     email: z.string()
-       .min(1, { message: "Email is required" })
+        .min(1, { message: "Email is required" })
         .email({ message: "Invalid email address" }),
     password: z.string()
-       .min(1, { message: "Password is required" })
+        .min(1, { message: "Password is required" })
 });
 
 export const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
-       resolver: zodResolver(LoginSchema)
+        resolver: zodResolver(LoginSchema)
     });
 
     const onSubmit = async (data) => {
         setLoading(true);
         try {
             const response = await authServices.Login(data);
+            console.log('Login response:', response); // Debug response
             message.success("Login successful!");
-            navigate(response.redirectTo || '/');
+
+            // Đảm bảo redirectTo tồn tại và là chuỗi hợp lệ
+            const redirectTo = response.redirectTo || '/';
+            console.log('Navigating to:', redirectTo); // Debug redirectTo
+            navigate(redirectTo);
 
         } catch (error) {
+            console.error('Login error:', error); // Debug error
             message.error(error.message || 'Login failed! Please try again later.');
         } finally {
             setLoading(false);
@@ -43,20 +49,20 @@ export const Login = () => {
                     {/* Email Field */}
                     <div>
                         <label className="block text-sm font-medium mb-1">Email</label>
-                       <input
-                           {...register('email')}
+                        <input
+                            {...register('email')}
                             className="w-full px-3 py-2 border rounded-lg"
-                          type="email"
-                           placeholder="Enter your email"
-                       />
+                            type="email"
+                            placeholder="Enter your email"
+                        />
                         {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                     </div>
 
                     {/* Password Field */}
-                   <div>
+                    <div>
                         <label className="block text-sm font-medium mb-1">Password</label>
                         <input
-                           {...register('password')}
+                            {...register('password')}
                             className="w-full px-3 py-2 border rounded-lg"
                             type="password"
                             placeholder="Enter password"
@@ -83,9 +89,11 @@ export const Login = () => {
                         >
                             Register
                         </button>
-                    </div>                   
+                    </div>
                 </form>
             </div>
         </div>
-   );
+    );
 };
+
+export default Login;

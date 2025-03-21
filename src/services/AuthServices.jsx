@@ -1,21 +1,17 @@
 import { apiInstance } from "../Constants";
-import axios from "axios";
 import { PATH } from "../Constants/PATH";
 
-const api = apiInstance({
-    baseURL: 'https://fiverrnew.cybersoft.edu.vn/api',
-});
+// Khởi tạo api instance với cấu hình từ Constants
+const api = apiInstance();
 
 // Centralized error handler
 const handleError = (error, action) => {
     let errorMessage = 'Something went wrong. Please try again.';
     
     if (error.response) {
-        // Server responded with a status code outside 2xx range
         switch (error.response.status) {
             case 400:
                 if (error.response.data && error.response.data.errors) {
-                    // Handle validation errors from the server
                     errorMessage = Object.values(error.response.data.errors)
                         .map(err => Array.isArray(err) ? err.join(' ') : err)
                         .join('\n');
@@ -57,6 +53,7 @@ const handleError = (error, action) => {
 export const authServices = {
     Register: async (formData) => {
         try {
+            console.log('Registering with formData:', formData); // Debug formData
             const response = await api.post(PATH.AUTH.REGISTER, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -65,22 +62,27 @@ export const authServices = {
                     return status < 500; // Reject only if status is 500 or above
                 }
             });
+            console.log('Register response:', response.data); // Debug response
             return response.data;
         } catch (error) {
             return handleError(error, 'Signup');
         }
     },
+
     Login: async (payload) => {
         try {
             console.log('Attempting login with payload:', payload);
-            const response = await axios.get(PATH.AUTH.LOGIN, payload);
+            const response = await api.post(PATH.AUTH.LOGIN, payload, {
+                validateStatus: function (status) {
+                    return status < 500; // Reject only if status is 500 or above
+                }
+            });
             console.log('Login successful, response:', response.data);
-            
-            // Store token if needed
-            if (response.data.token) {
-                localStorage.setItem('authToken', response.data.token);
+
+            if (response.data.content?.token) {
+                localStorage.setItem('authToken', response.data.content.token);
             }
-            
+
             return {
                 ...response.data,
                 redirectTo: '/userprofile'
@@ -90,22 +92,32 @@ export const authServices = {
             return handleError(error, 'Login');
         }
     },
+
     Logout: async () => {
         try {
-            // Clear any stored tokens or session data
+            const response = await api.post(PATH.AUTH.LOGOUT, {}, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                },
+                validateStatus: function (status) {
+                    return status < 500; // Reject only if status is 500 or above
+                }
+            });
+
             localStorage.removeItem('authToken');
-            return true;
+            return response.data;
         } catch (error) {
             console.error('Logout error:', error);
-            return false;
+            return handleError(error, 'Logout');
         }
     },
-    
+
     UpdateProfile: async (userId, profileData) => {
         try {
             const response = await api.put(PATH.USER.UPDATE_PROFILE(userId), profileData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
                 },
                 validateStatus: function (status) {
                     return status < 500;

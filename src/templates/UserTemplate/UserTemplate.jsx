@@ -3,14 +3,16 @@ import Footer from '../../components/Footer/Footer'
 import { Outlet } from 'react-router-dom'
 import { Header } from '../../components/Header/Header'
 
-export const UserTemplate = (props) => {
-  const { children } = props
+export const UserTemplate = () => {
+
   return (
     <div>
-      <Header/>
-          {children}
-        <Outlet/>
-        <Footer/>
+      <Header />
+      <div className='bg-gray-100'>
+
+        <Outlet />
+      </div>
+      <Footer />
 
     </div>
   )
